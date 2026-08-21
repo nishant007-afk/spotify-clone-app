@@ -69,12 +69,12 @@
         }
         .hero h1 {
             font-size: clamp(44px, 7vw, 80px); font-weight: 900; line-height: 1;
-            letter-spacing: -3px; max-width: 600px; margin-bottom: 24px;
+            letter-spacing: -3px; max-width: 900px; margin-bottom: 24px;
             opacity: 0; transform: translateY(24px);
         }
         .hero h1 b { color: var(--green); font-weight: inherit; }
         .hero p {
-            font-size: 18px; color: var(--gray-500); max-width: 440px; margin-bottom: 40px;
+            font-size: 18px; color: var(--gray-500); max-width: 600px; margin-bottom: 40px;
             line-height: 1.7; opacity: 0; transform: translateY(16px);
         }
         .hero-btns {
@@ -98,10 +98,10 @@
         .btn-ol:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.03); }
 
         /* SECTIONS */
-        section { padding: 80px clamp(20px, 6vw, 80px); max-width: 720px; }
+        section { padding: 80px clamp(20px, 6vw, 80px); max-width: 1000px; }
         .st { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
         .sh { font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.12; letter-spacing: -1px; margin-bottom: 16px; }
-        .sd { font-size: 16px; color: var(--gray-500); line-height: 1.75; margin-bottom: 36px; max-width: 520px; }
+        .sd { font-size: 16px; color: var(--gray-500); line-height: 1.75; margin-bottom: 36px; max-width: 700px; }
 
         /* FEATURES */
         .fl { list-style: none; }
@@ -133,7 +133,7 @@
         /* DOWNLOAD */
         .dl { padding: 100px clamp(20px, 6vw, 80px); }
         .dl h2 { font-size: clamp(30px, 5vw, 48px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 14px; }
-        .dl p { font-size: 16px; color: var(--gray-500); max-width: 440px; margin-bottom: 36px; line-height: 1.7; }
+        .dl p { font-size: 16px; color: var(--gray-500); max-width: 600px; margin-bottom: 36px; line-height: 1.7; }
         .dl-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
         /* FOOTER */
@@ -143,7 +143,7 @@
         /* RESPONSIVE */
         @media (max-width: 640px) {
             .nav-r a:not(.btn-g) { display: none; }
-            section, .dl { padding: 64px 20px; }
+            section { padding: 64px 20px; max-width: 100%; } .dl { padding: 64px 20px; }
             .hero { padding: 90px 20px 60px; }
             .hero-btns { flex-direction: column; }
             .btn-dl, .btn-ol { width: 100%; justify-content: center; }
