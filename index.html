@@ -9,603 +9,254 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --green: #1DB954;
             --green-hover: #1ed760;
             --black: #0a0a0a;
-            --dark: #111;
-            --gray-900: #1a1a1a;
-            --gray-800: #222;
-            --gray-600: #666;
-            --gray-400: #999;
+            --gray-900: #141414;
+            --gray-700: #444;
+            --gray-500: #777;
             --gray-300: #aaa;
-            --white: #f5f5f5;
+            --white: #f0f0f0;
             --pure-white: #fff;
         }
-
         html { scroll-behavior: smooth; }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--black);
             color: var(--white);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ─── NAV ─── */
+        /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 20px 40px;
-            display: flex; align-items: center; justify-content: space-between;
-            transition: background 0.3s, backdrop-filter 0.3s;
+            padding: 0 clamp(20px, 4vw, 48px);
+            height: 64px; display: flex; align-items: center; justify-content: space-between;
+            transition: background 0.3s, border-color 0.3s;
+            border-bottom: 1px solid transparent;
         }
-        nav.scrolled {
-            background: rgba(10,10,10,0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .nav-brand {
-            font-weight: 800; font-size: 18px; letter-spacing: -0.3px;
-            color: var(--pure-white); text-decoration: none;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .nav-brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
-        .nav-links { display: flex; gap: 32px; }
-        .nav-links a {
-            color: var(--gray-300); text-decoration: none; font-size: 14px;
-            font-weight: 500; transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--pure-white); }
-        .nav-cta {
-            background: var(--green); color: var(--black); border: none;
-            padding: 10px 24px; border-radius: 50px; font-size: 14px;
-            font-weight: 700; cursor: pointer; text-decoration: none;
-            transition: background 0.2s, transform 0.2s;
-        }
-        .nav-cta:hover { background: var(--green-hover); transform: scale(1.04); }
+        nav.scrolled { background: rgba(10,10,10,0.95); border-color: rgba(255,255,255,0.06); backdrop-filter: blur(20px); }
+        .brand { font-weight: 800; font-size: 17px; color: var(--pure-white); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .brand i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+        .nav-r { display: flex; align-items: center; gap: 28px; }
+        .nav-r a { color: var(--gray-300); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .nav-r a:hover { color: var(--pure-white); }
+        .btn-g { background: var(--green); color: var(--black); padding: 9px 22px; border-radius: 50px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+        .btn-g:hover { background: var(--green-hover); }
 
-        /* ─── HERO ─── */
+        /* HERO */
         .hero {
             min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center; padding: 120px 24px 80px;
-            position: relative; overflow: hidden;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 100px 24px 80px; position: relative; overflow: hidden;
         }
         .hero::before {
-            content: ''; position: absolute; top: -200px; left: 50%;
-            transform: translateX(-50%); width: 900px; height: 900px;
-            background: radial-gradient(circle, rgba(29,185,84,0.08) 0%, transparent 60%);
-            pointer-events: none;
+            content: ''; position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 800px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(29,185,84,0.07) 0%, transparent 65%);
         }
-        .hero-tag {
-            display: inline-block; font-size: 13px; font-weight: 600;
-            color: var(--green); letter-spacing: 0.8px; text-transform: uppercase;
-            margin-bottom: 24px; opacity: 0; transform: translateY(20px);
+        .tag {
+            font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+            color: var(--green); margin-bottom: 28px;
+            opacity: 0; transform: translateY(16px);
         }
         .hero h1 {
-            font-size: clamp(42px, 7vw, 80px); font-weight: 900;
-            line-height: 1.05; letter-spacing: -2px; max-width: 700px;
-            margin-bottom: 24px; opacity: 0; transform: translateY(30px);
+            font-size: clamp(44px, 8vw, 88px); font-weight: 900; line-height: 1;
+            letter-spacing: -3px; max-width: 680px; margin-bottom: 28px;
+            opacity: 0; transform: translateY(24px);
         }
-        .hero h1 em {
-            font-style: normal; color: var(--green);
+        .hero h1 b { color: var(--green); font-weight: inherit; }
+        .hero p {
+            font-size: 18px; color: var(--gray-500); max-width: 440px; margin-bottom: 44px;
+            line-height: 1.7; opacity: 0; transform: translateY(16px);
         }
-        .hero-sub {
-            font-size: 18px; color: var(--gray-400); max-width: 480px;
-            margin-bottom: 48px; line-height: 1.7;
-            opacity: 0; transform: translateY(20px);
+        .hero-btns {
+            display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+            opacity: 0; transform: translateY(16px);
         }
-        .hero-actions {
-            display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
-            opacity: 0; transform: translateY(20px);
-        }
-        .btn-download {
+        .btn-dl {
             display: inline-flex; align-items: center; gap: 10px;
             background: var(--green); color: var(--black);
-            padding: 16px 36px; border-radius: 50px; font-size: 16px;
-            font-weight: 700; text-decoration: none; border: none; cursor: pointer;
-            transition: all 0.25s;
+            padding: 15px 34px; border-radius: 50px; font-size: 15px;
+            font-weight: 700; text-decoration: none; transition: all 0.25s;
         }
-        .btn-download:hover {
-            background: var(--green-hover); transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(29,185,84,0.3);
-        }
-        .btn-download svg { width: 20px; height: 20px; }
-        .btn-ghost {
+        .btn-dl:hover { background: var(--green-hover); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(29,185,84,0.3); }
+        .btn-dl svg { width: 18px; height: 18px; }
+        .btn-ol {
             display: inline-flex; align-items: center; gap: 8px;
-            background: transparent; color: var(--white);
-            padding: 16px 36px; border-radius: 50px; font-size: 16px;
-            font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,0.15);
-            cursor: pointer; transition: all 0.25s;
+            padding: 15px 34px; border-radius: 50px; font-size: 15px;
+            font-weight: 600; color: var(--white); text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.12); transition: all 0.25s;
         }
-        .btn-ghost:hover {
-            border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04);
-        }
+        .btn-ol:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.03); }
 
-        /* ─── PHONE MOCKUP ─── */
-        .mockup-wrap {
-            margin-top: 64px; opacity: 0; transform: translateY(40px);
-        }
-        .phone {
-            width: 280px; margin: 0 auto; background: var(--gray-900);
-            border-radius: 36px; border: 2px solid #2a2a2a;
-            overflow: hidden; position: relative;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
-        }
-        .phone-notch {
-            width: 100px; height: 22px; background: #2a2a2a;
-            border-radius: 0 0 14px 14px; margin: 0 auto;
-        }
-        .phone-body { padding: 14px 14px 50px; }
-        .phone-greet { font-size: 20px; font-weight: 700; margin-bottom: 14px; }
-        .phone-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-            margin-bottom: 16px;
-        }
-        .phone-pill {
-            display: flex; align-items: center; background: rgba(255,255,255,0.07);
-            border-radius: 6px; overflow: hidden; height: 40px;
-        }
-        .phone-pill-art { width: 40px; height: 40px; flex-shrink: 0; }
-        .phone-pill-text { font-size: 9px; font-weight: 700; padding: 0 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .phone-label { font-size: 14px; font-weight: 700; margin-bottom: 10px; margin-top: 14px; }
-        .phone-song {
-            display: flex; align-items: center; gap: 10px; padding: 5px 0;
-        }
-        .phone-song-art { width: 36px; height: 36px; border-radius: 4px; flex-shrink: 0; }
-        .phone-song-name { font-size: 11px; font-weight: 600; }
-        .phone-song-artist { font-size: 9px; color: var(--gray-400); }
-        .phone-mini {
-            position: absolute; bottom: 14px; left: 14px; right: 14px;
-            background: rgba(30,30,30,0.95); backdrop-filter: blur(12px);
-            border-radius: 8px; padding: 8px 10px;
-            display: flex; align-items: center; gap: 8px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .phone-mini-art { width: 32px; height: 32px; border-radius: 4px; }
-        .phone-mini-info { flex: 1; }
-        .phone-mini-title { font-size: 10px; font-weight: 600; }
-        .phone-mini-artist { font-size: 8px; color: var(--gray-400); }
-        .phone-mini-btn {
-            width: 28px; height: 28px; background: var(--pure-white);
-            border-radius: 50%; border: none; display: flex;
-            align-items: center; justify-content: center;
-        }
+        /* SECTIONS */
+        section { padding: 80px clamp(20px, 4vw, 48px); max-width: 680px; margin: 0 auto; }
+        .st { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+        .sh { font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.12; letter-spacing: -1px; margin-bottom: 16px; }
+        .sd { font-size: 16px; color: var(--gray-500); line-height: 1.75; margin-bottom: 36px; max-width: 520px; }
 
-        /* ─── SECTIONS ─── */
-        section { padding: 100px 24px; max-width: 720px; margin: 0 auto; }
-
-        .section-label {
-            font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
-            text-transform: uppercase; color: var(--green); margin-bottom: 12px;
-        }
-        .section-title {
-            font-size: clamp(28px, 4vw, 44px); font-weight: 800;
-            line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px;
-        }
-        .section-desc {
-            font-size: 17px; color: var(--gray-400); line-height: 1.75;
-            margin-bottom: 40px; max-width: 540px;
-        }
-
-        /* ─── FEATURE LIST ─── */
-        .feature-list { list-style: none; }
-        .feature-list li {
-            padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+        /* FEATURES */
+        .fl { list-style: none; }
+        .fl li {
             display: flex; align-items: flex-start; gap: 16px;
-            opacity: 0; transform: translateX(-20px);
+            padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0; transform: translateY(12px);
         }
-        .feature-list li:last-child { border-bottom: none; }
-        .feature-icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            background: rgba(29,185,84,0.12); display: flex;
-            align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0; margin-top: 2px;
+        .fl li:last-child { border: none; }
+        .fi {
+            width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; margin-top: 2px;
+            background: rgba(29,185,84,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px;
         }
-        .feature-text h4 {
-            font-size: 16px; font-weight: 700; margin-bottom: 4px;
-            color: var(--pure-white);
+        .ft h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; color: var(--pure-white); }
+        .ft p { font-size: 13px; color: var(--gray-500); line-height: 1.55; }
+
+        /* LYRICS */
+        .ly {
+            background: var(--gray-900); border-radius: 12px; padding: 36px 28px;
+            position: relative; overflow: hidden; margin-top: 40px;
         }
-        .feature-text p {
-            font-size: 14px; color: var(--gray-400); line-height: 1.6;
+        .ly::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+        .ll { font-size: 20px; font-weight: 600; line-height: 1.9; transition: all 0.4s ease; }
+        .ll.dim { color: rgba(255,255,255,0.1); }
+        .ll.faded { color: rgba(255,255,255,0.25); }
+        .ll.active { color: var(--pure-white); transform: scale(1.02); text-shadow: 0 0 30px rgba(29,185,84,0.15); }
+
+        /* DOWNLOAD */
+        .dl { text-align: center; padding: 100px clamp(20px, 4vw, 48px); }
+        .dl h2 { font-size: clamp(30px, 5vw, 48px); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 14px; }
+        .dl p { font-size: 16px; color: var(--gray-500); max-width: 400px; margin: 0 auto 36px; line-height: 1.7; }
+
+        /* FOOTER */
+        footer { padding: 36px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer p { font-size: 12px; color: var(--gray-700); }
+
+        /* RESPONSIVE */
+        @media (max-width: 640px) {
+            .nav-r a:not(.btn-g) { display: none; }
+            section, .dl { padding: 64px 20px; }
+            .hero { padding: 90px 20px 60px; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .btn-dl, .btn-ol { width: 100%; justify-content: center; }
         }
 
-        /* ─── LYRICS SECTION ─── */
-        .lyrics-demo {
-            background: var(--gray-900); border-radius: 16px;
-            padding: 40px 32px; position: relative; overflow: hidden;
-            margin-top: 48px;
-        }
-        .lyrics-demo::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--green);
-        }
-        .lyric-line {
-            font-size: 22px; font-weight: 600; line-height: 1.8;
-            transition: all 0.4s ease;
-        }
-        .lyric-line.dim { color: rgba(255,255,255,0.12); }
-        .lyric-line.faded { color: rgba(255,255,255,0.3); }
-        .lyric-line.active {
-            color: var(--pure-white); transform: scale(1.03);
-            text-shadow: 0 0 40px rgba(29,185,84,0.2);
-        }
-
-        /* ─── SPECS ─── */
-        .specs-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-            margin-top: 40px;
-        }
-        .spec-item { padding: 24px 0; }
-        .spec-item h3 {
-            font-size: 36px; font-weight: 900; color: var(--green);
-            letter-spacing: -1px;
-        }
-        .spec-item p {
-            font-size: 14px; color: var(--gray-400); margin-top: 6px;
-        }
-
-        /* ─── DOWNLOAD ─── */
-        .download-section {
-            text-align: center; padding: 120px 24px;
-        }
-        .download-section h2 {
-            font-size: clamp(32px, 5vw, 52px); font-weight: 900;
-            letter-spacing: -1.5px; margin-bottom: 16px;
-        }
-        .download-section p {
-            font-size: 17px; color: var(--gray-400); max-width: 460px;
-            margin: 0 auto 40px; line-height: 1.7;
-        }
-        .dl-card {
-            background: var(--gray-900); border-radius: 20px;
-            padding: 48px 40px; max-width: 480px; margin: 0 auto;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-        .dl-card .dl-icon { font-size: 48px; margin-bottom: 20px; }
-        .dl-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-        .dl-card p { color: var(--gray-400); font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
-        .dl-steps {
-            text-align: left; margin-bottom: 32px;
-        }
-        .dl-steps ol {
-            list-style: none; counter-reset: step;
-        }
-        .dl-steps li {
-            counter-increment: step; padding: 10px 0;
-            padding-left: 36px; position: relative;
-            font-size: 14px; color: var(--gray-300);
-        }
-        .dl-steps li::before {
-            content: counter(step); position: absolute; left: 0; top: 10px;
-            width: 24px; height: 24px; background: rgba(29,185,84,0.15);
-            border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; font-size: 12px; font-weight: 700;
-            color: var(--green);
-        }
-        .dl-steps code {
-            background: rgba(255,255,255,0.06); padding: 2px 8px;
-            border-radius: 4px; font-size: 13px; font-family: 'SF Mono', 'Fira Code', monospace;
-            color: var(--green);
-        }
-
-        /* ─── FOOTER ─── */
-        footer {
-            padding: 40px 24px; text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        footer p { font-size: 13px; color: var(--gray-600); }
-        footer a { color: var(--green); text-decoration: none; }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 768px) {
-            nav { padding: 16px 20px; }
-            .nav-links { display: none; }
-            section { padding: 72px 20px; }
-            .specs-grid { grid-template-columns: 1fr; gap: 16px; }
-            .dl-card { padding: 32px 24px; }
-            .lyrics-demo { padding: 28px 20px; }
-            .lyric-line { font-size: 18px; }
-            .hero { padding: 100px 20px 60px; }
-            .phone { width: 240px; }
-            .phone-pill { height: 36px; }
-            .phone-pill-art { width: 36px; height: 36px; }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { letter-spacing: -1px; }
-            .hero-actions { flex-direction: column; width: 100%; }
-            .btn-download, .btn-ghost { width: 100%; justify-content: center; }
-        }
-
-        /* ─── ANIMATIONS ─── */
-        .reveal {
-            opacity: 0; transform: translateY(24px);
-            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal.visible {
-            opacity: 1; transform: translateY(0);
-        }
-        .reveal-left {
-            opacity: 0; transform: translateX(-20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .reveal-left.visible {
-            opacity: 1; transform: translateX(0);
-        }
+        /* REVEAL */
+        .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .rv.v { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
 <nav id="nav">
-    <a href="#" class="nav-brand"><span class="dot"></span>spotify clone</a>
-    <div class="nav-links">
+    <a href="#" class="brand"><i></i>spotify clone</a>
+    <div class="nav-r">
         <a href="#features">Features</a>
         <a href="#lyrics">Lyrics</a>
-        <a href="#download">Download</a>
+        <a href="#download" class="btn-g">Download</a>
     </div>
-    <a href="#download" class="nav-cta">Get APK</a>
 </nav>
 
-<!-- ─── HERO ─── -->
 <section class="hero">
-    <div class="hero-tag" data-animate="hero">Free &amp; open source</div>
-    <h1 data-animate="hero">Music player<br>you'll actually <em>use.</em></h1>
-    <p class="hero-sub" data-animate="hero">
-        A native Android app that plays every song on your device
-        with synced lyrics and zero ads. Forever free.
-    </p>
-    <div class="hero-actions" data-animate="hero">
-        <a href="#download" class="btn-download">
+    <div class="tag" data-h>Free &amp; open source</div>
+    <h1 data-h>Music player<br>you'll actually <b>use.</b></h1>
+    <p data-h>Plays every song on your device with synced lyrics. Zero ads. Forever free.</p>
+    <div class="hero-btns" data-h>
+        <a href="#download" class="btn-dl">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.67v4h4V9h3.67L12 2z"/></svg>
             Download APK
         </a>
-        <a href="#features" class="btn-ghost">See what's inside →</a>
-    </div>
-
-    <!-- Phone -->
-    <div class="mockup-wrap" data-animate="hero">
-        <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-body">
-                <div class="phone-greet">Good evening 🌙</div>
-                <div class="phone-grid">
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#E91E63"></div><div class="phone-pill-text">Blinding Lights</div></div>
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#9C27B0"></div><div class="phone-pill-text">Shape of You</div></div>
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#2196F3"></div><div class="phone-pill-text">Bohemian…</div></div>
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#FF9800"></div><div class="phone-pill-text">Imagine</div></div>
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#4CAF50"></div><div class="phone-pill-text">Hey Jude</div></div>
-                    <div class="phone-pill"><div class="phone-pill-art" style="background:#00BCD4"></div><div class="phone-pill-text">Billie Jean</div></div>
-                </div>
-                <div class="phone-label">Recently Played</div>
-                <div class="phone-song"><div class="phone-song-art" style="background:#1DB954"></div><div><div class="phone-song-name">Bohemian Rhapsody</div><div class="phone-song-artist">Queen</div></div></div>
-                <div class="phone-song"><div class="phone-song-art" style="background:#FF5722"></div><div><div class="phone-song-name">Hotel California</div><div class="phone-song-artist">Eagles</div></div></div>
-                <div class="phone-song"><div class="phone-song-art" style="background:#673AB7"></div><div><div class="phone-song-name">Stairway to Heaven</div><div class="phone-song-artist">Led Zeppelin</div></div></div>
-                <div class="phone-mini">
-                    <div class="phone-mini-art" style="background:#E91E63"></div>
-                    <div class="phone-mini-info"><div class="phone-mini-title">Blinding Lights</div><div class="phone-mini-artist">The Weeknd</div></div>
-                    <button class="phone-mini-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></button>
-                </div>
-            </div>
-        </div>
+        <a href="#features" class="btn-ol">See what's inside →</a>
     </div>
 </section>
 
-<!-- ─── FEATURES ─── -->
 <section id="features">
-    <div class="section-label reveal">What it does</div>
-    <h2 class="section-title reveal">Everything you need.<br>Nothing you don't.</h2>
-    <p class="section-desc reveal">
-        Built as a full-featured music player with the look and feel
-        of the app you already love — minus the paywall.
-    </p>
-
-    <ul class="feature-list">
-        <li data-animate="feature">
-            <div class="feature-icon">🎵</div>
-            <div class="feature-text">
-                <h4>Plays every song on your device</h4>
-                <p>Scans your music library automatically. MP3, WAV, OGG, FLAC — whatever you have, it plays it.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">📝</div>
-            <div class="feature-text">
-                <h4>Synced lyrics that follow the music</h4>
-                <p>Lyrics scroll and highlight in real time as the song plays. Built-in lyrics for 16+ popular tracks.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">🔍</div>
-            <div class="feature-text">
-                <h4>Instant search across your library</h4>
-                <p>Find songs by title, artist, or album as you type. Browse genres in a color-coded grid.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">🔀</div>
-            <div class="feature-text">
-                <h4>Shuffle, repeat, and full controls</h4>
-                <p>Shuffle mode, repeat all or repeat one, skip forward/back — everything works the way you expect.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">🖼️</div>
-            <div class="feature-text">
-                <h4>Full-screen player with album art</h4>
-                <p>Beautiful full-screen player with seek bar, time display, like button, and one-tap lyrics access.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">🎧</div>
-            <div class="feature-text">
-                <h4>Background playback with notifications</h4>
-                <p>Music keeps playing when you switch apps. Control playback from the notification shade.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">📱</div>
-            <div class="feature-text">
-                <h4>Native Android, smooth performance</h4>
-                <p>Built with Java and Material Design. Runs on Android 7.0 and above with no lag.</p>
-            </div>
-        </li>
-        <li data-animate="feature">
-            <div class="feature-icon">🆓</div>
-            <div class="feature-text">
-                <h4>100% free. No ads. No catches.</h4>
-                <p>No premium tier, no subscriptions, no data collection. Open source and transparent.</p>
-            </div>
-        </li>
+    <div class="st rv">What it does</div>
+    <h2 class="sh rv">Everything you need.<br>Nothing you don't.</h2>
+    <p class="sd rv">A full-featured music player with the look and feel of the app you already love — minus the paywall.</p>
+    <ul class="fl">
+        <li><div class="fi">🎵</div><div class="ft"><h4>Plays every song on your device</h4><p>Scans your library automatically. MP3, WAV, OGG, FLAC — whatever you have, it plays it.</p></div></li>
+        <li><div class="fi">📝</div><div class="ft"><h4>Synced lyrics that follow the music</h4><p>Lyrics scroll and highlight in real time. Built-in lyrics for 16+ popular tracks.</p></div></li>
+        <li><div class="fi">🔍</div><div class="ft"><h4>Instant search across your library</h4><p>Find songs by title, artist, or album as you type.</p></div></li>
+        <li><div class="fi">🔀</div><div class="ft"><h4>Shuffle, repeat, full controls</h4><p>Everything works the way you expect.</p></div></li>
+        <li><div class="fi">🖼️</div><div class="ft"><h4>Full-screen player with album art</h4><p>Seek bar, time display, like button, one-tap lyrics access.</p></div></li>
+        <li><div class="fi">🎧</div><div class="ft"><h4>Background playback with notifications</h4><p>Music keeps playing when you switch apps.</p></div></li>
+        <li><div class="fi">📱</div><div class="ft"><h4>Native Android, smooth performance</h4><p>Built with Java and Material Design. Android 7.0+.</p></div></li>
+        <li><div class="fi">🆓</div><div class="ft"><h4>100% free. No ads. No catches.</h4><p>No premium tier, no subscriptions. Open source.</p></div></li>
     </ul>
 </section>
 
-<!-- ─── LYRICS ─── -->
 <section id="lyrics">
-    <div class="section-label reveal">Synced lyrics</div>
-    <h2 class="section-title reveal">Follow along.<br>Sing every word.</h2>
-    <p class="section-desc reveal">
-        The lyrics engine syncs text to the playback position
-        and auto-scrolls to keep the current line front and center.
-    </p>
-
-    <div class="lyrics-demo reveal" id="lyricsDemo">
-        <div class="lyric-line dim" data-lyric="0">Is this the real life?</div>
-        <div class="lyric-line dim" data-lyric="1">Is this just fantasy?</div>
-        <div class="lyric-line faded" data-lyric="2">Caught in a landslide</div>
-        <div class="lyric-line faded" data-lyric="3">No escape from reality</div>
-        <div class="lyric-line active" data-lyric="4">Open your eyes</div>
-        <div class="lyric-line" data-lyric="5">Look up to the skies and see</div>
-        <div class="lyric-line" data-lyric="6">I'm just a poor boy</div>
-        <div class="lyric-line" data-lyric="7">I need no sympathy</div>
-        <div class="lyric-line" data-lyric="8">Because I'm easy come, easy go</div>
-        <div class="lyric-line" data-lyric="9">Little high, little low</div>
+    <div class="st rv">Synced lyrics</div>
+    <h2 class="sh rv">Follow along.<br>Sing every word.</h2>
+    <p class="sd rv">The lyrics engine syncs text to playback and auto-scrolls to keep the current line front and center.</p>
+    <div class="ly rv">
+        <div class="ll dim" data-l="0">Is this the real life?</div>
+        <div class="ll dim" data-l="1">Is this just fantasy?</div>
+        <div class="ll faded" data-l="2">Caught in a landslide</div>
+        <div class="ll faded" data-l="3">No escape from reality</div>
+        <div class="ll active" data-l="4">Open your eyes</div>
+        <div class="ll" data-l="5">Look up to the skies and see</div>
+        <div class="ll" data-l="6">I'm just a poor boy</div>
+        <div class="ll" data-l="7">I need no sympathy</div>
     </div>
 </section>
 
-<!-- ─── SPECS ─── -->
-<section>
-    <div class="section-label reveal">By the numbers</div>
-    <div class="specs-grid reveal">
-        <div class="spec-item"><h3>30+</h3><p>Sample songs with metadata</p></div>
-        <div class="spec-item"><h3>16</h3><p>Songs with synced lyrics</p></div>
-        <div class="spec-item"><h3>7 MB</h3><p>APK size — lightweight install</p></div>
-        <div class="spec-item"><h3>$0</h3><p>No ads, no subscriptions, ever</p></div>
+<section class="dl" id="download">
+    <div class="st rv">Get started</div>
+    <h2 class="rv">Download and play.</h2>
+    <p class="rv">Grab the APK, install it on your Android device, and start listening.</p>
+    <div class="rv" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a href="SpotifyClone.apk" download class="btn-dl">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.67v4h4V9h3.67L12 2z"/></svg>
+            Download APK
+        </a>
+        <a href="https://github.com/nishant007-afk/spotify-clone-app" class="btn-ol">View Source →</a>
     </div>
 </section>
 
-<!-- ─── DOWNLOAD ─── -->
-<section id="download" class="download-section">
-    <div class="section-label reveal">Get started</div>
-    <h2 class="reveal">Build it yourself.</h2>
-    <p class="reveal" style="margin-left:auto;margin-right:auto;">
-        Open the project in Android Studio and hit build. The
-        whole thing compiles in under a minute.
-    </p>
-
-    <div class="dl-card reveal">
-        <div class="dl-icon">📦</div>
-        <h3>Source Code</h3>
-        <p>Download the pre-built APK directly, or open the full project in Android Studio.</p>
-        <div class="dl-steps">
-            <ol>
-                <li>Open <code>spotify-clone/</code> in Android Studio</li>
-                <li>Wait for Gradle sync to finish</li>
-                <li>Run <code>Build → Build APK</code></li>
-                <li>Find APK at <code>app/build/outputs/apk/debug/</code></li>
-                <li>Transfer to your phone and install</li>
-            </ol>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-            <a href="SpotifyClone.apk" download class="btn-download">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.67v4h4V9h3.67L12 2z"/></svg>
-                Download APK
-            </a>
-            <a href="../" class="btn-ghost" style="font-size:14px;">Browse Source →</a>
-        </div>
-    </div>
-</section>
-
-<!-- ─── FOOTER ─── -->
 <footer>
     <p>Built with Android Studio &amp; Java · Not affiliated with Spotify AB</p>
 </footer>
 
 <script>
-    // ── Nav scroll ──
+    // Nav
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
     const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 40);
+
+    // Hero entrance
+    document.querySelectorAll('[data-h]').forEach((el, i) => {
+        setTimeout(() => { el.style.transition = 'opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)'; el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, 150 + i * 100);
     });
 
-    // ── Hero entrance ──
-    const heroEls = document.querySelectorAll('[data-animate="hero"]');
-    heroEls.forEach((el, i) => {
-        setTimeout(() => {
-            el.style.transition = 'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)';
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-        }, 200 + i * 120);
+    // Scroll reveal
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.rv, .fl li').forEach(el => {
+        el.classList.add('rv');
+        io.observe(el);
     });
 
-    // ── Scroll reveal ──
-    const revealEls = document.querySelectorAll('.reveal, .reveal-left, [data-animate="feature"]');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    // Feature stagger
+    const fo = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) {
+            const i = [...document.querySelectorAll('.fl li')].indexOf(e.target);
+            setTimeout(() => { e.target.style.transition = 'opacity .45s ease,transform .45s ease'; e.target.style.opacity = 1; e.target.style.transform = 'translateY(0)'; }, i * 60);
+            fo.unobserve(e.target);
+        }
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.fl li').forEach(el => fo.observe(el));
 
-    revealEls.forEach(el => observer.observe(el));
-
-    // ── Feature list staggered reveal ──
-    const featureItems = document.querySelectorAll('.feature-list li');
-    const featureObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                const idx = Array.from(featureItems).indexOf(entry.target);
-                setTimeout(() => {
-                    entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateX(0)';
-                }, idx * 80);
-                featureObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    featureItems.forEach(el => featureObserver.observe(el));
-
-    // ── Lyrics auto-scroll ──
-    let currentLyric = 4;
-    const lyrics = document.querySelectorAll('[data-lyric]');
+    // Lyrics
+    let c = 4;
+    const ls = document.querySelectorAll('[data-l]');
     setInterval(() => {
-        lyrics.forEach((line, i) => {
-            line.classList.remove('active', 'faded', 'dim');
-            const diff = i - currentLyric;
-            if (diff < -1) line.classList.add('dim');
-            else if (diff < 0) line.classList.add('faded');
-            else if (diff === 0) line.classList.add('active');
-        });
-        currentLyric = (currentLyric + 1) % lyrics.length;
+        ls.forEach((l, i) => { l.classList.remove('active','faded','dim'); const d = i - c; if (d < -1) l.classList.add('dim'); else if (d < 0) l.classList.add('faded'); else if (!d) l.classList.add('active'); });
+        c = (c + 1) % ls.length;
     }, 2200);
 
-    // ── Smooth scroll ──
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            const t = document.querySelector(a.getAttribute('href'));
-            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' }); }));
 </script>
 
 </body>
